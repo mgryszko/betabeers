@@ -13,17 +13,28 @@ class TorrentHubController {
 
         if (url.text != 'No torrents where found!')
         {
-            def xml = new XmlSlurper().parseText(url.text)
-            def allItems = xml.channel.item  // 50 results by default
-            def torrents = allItems.inject([]) { list, item ->
-                list << new Torrent(title: item.title, url: item.enclosure.'@url')
-            }
+            def torrents = parseUrl(url)
+            def torrentsTruncated = torrents[0..maxResults(torrents)]
 
-            def range = (0..4)  // Restring to N results with a range (0..N-1)
-            torrentList.torrents = torrents[range].collect { torrent -> [torrent: [title: torrent.title, url: torrent.url]] }
+            torrentList.torrents = torrentsTruncated.collect { torrent ->
+                [torrent: [title: torrent.title, url: torrent.url]]
+            }
         }
 
         render torrentList as JSON
+    }
+
+    private parseUrl(url) {
+        def xml = new XmlSlurper().parseText(url.text)
+        def allItems = xml.channel.item
+        allItems.inject([]) { list, item ->
+            list << new Torrent(title: item.title, url: item.enclosure.'@url')
+        }
+    }
+
+    private maxResults(list) {
+        final limit = 4
+        Math.min(list.size() - 1, limit)
     }
 
 }
