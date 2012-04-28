@@ -11,8 +11,15 @@
         "default_title":"Download this book",
         "default_popup":"popup.html"
     },
+    "content_scripts":[
+        {
+            "matches":["http://*.amazon.com/*"],
+            "js":["jquery-1.7.2.js", "scraper.js"]
+        }
+    ],
     "permissions":[
         "tabs",
-        "http://api.flickr.com/"
+        "http://api.flickr.com/",
+        "http://*.amazon.com/*"
     ]
 }

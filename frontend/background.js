@@ -1,11 +1,5 @@
-function onAmazon(tab) {
-    return tab.url.indexOf('amazon') > -1;
-}
-
-function checkForValidUrl(tabId, changeInfo, tab) {
-    if (onAmazon(tab)) {
-        chrome.pageAction.show(tabId);
+chrome.extension.onRequest.addListener(
+    function (request, sender, sendResponse) {
+        chrome.pageAction.show(sender.tab.id);
     }
-}
-
-chrome.tabs.onUpdated.addListener(checkForValidUrl);
+);
