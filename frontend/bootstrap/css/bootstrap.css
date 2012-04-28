@@ -2465,8 +2465,7 @@ table .span24 {
 
 .well {
   min-height: 20px;
-  padding: 19px;
-  margin-bottom: 20px;
+  padding: 19px; 
   background-color: #f5f5f5;
   border: 1px solid #eee;
   border: 1px solid rgba(0, 0, 0, 0.05);
