@@ -1,20 +1,35 @@
 package betabeers
 
-import groovy.json.*
+import grails.converters.JSON
 
 
 class TorrentHubController {
 
     def index() {
-        def json = new JsonBuilder()
-        json.torrents {
-            torrent {
-                title 'Neuro-Linguistic Programming'
-                link 'http://www.mnova.eu/rss/download/torrent/211231/2008-07-13/0a403d196cb8cef927fdc5231e3a5b014d562b98/e61c8b69242a8634f63fbc9717d47519/Neuro-Linguistic_Programming_-_NLP_eBook_(www.softzone.org).torrent'
-            }
+        def term = params.bookTitle ?: 'programming'
+        def url = "http://www.mnova.eu/rss.php?search=$term".toURL()
+        def xml = new XmlSlurper().parseText(url.text)  // new XmlParser().parseText(url.text)
+
+        def allItems = xml.channel.item  // 50 results by default
+        def torrents = allItems.inject([]) { list, item ->
+            list << new Torrent(title: item.title, url: item.enclosure.'@url')
         }
-        render json.toString()
+
+        torrents = torrents[0]  // Restring to N results with a range (0..N-1)
+        def torrentList = torrents.collect { torrent -> [torrent: [title: torrent.title, url: torrent.url]] }
+        torrentList = ['torrents': torrentList]
+        render torrentList as JSON
     }
 
 }
- 
+
+
+class Torrent {
+    String title
+    String url
+
+    String toString() {
+        """Title: $title
+          |URL: $url""".stripMargin()
+    }
+}
