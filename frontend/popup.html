@@ -1,7 +1,9 @@
 <!doctype html>
 <html>
   <head>
-    <title>Getting Started Extension's Popup</title>
+    <title>The Pirate Book</title>
+    <script src="jquery-1.7.2.js"></script>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     <style>
       body {
         min-width:357px;
@@ -16,10 +18,12 @@
         height:75px;
       }
     </style>
-
-    <!-- JavaScript and HTML must be in separate files for security. -->
-    <script src="popup.js"></script>
   </head>
   <body>
+    <div>
+      <ul id="torrents" class="nav nav-tabs nav-stacked">
+      </ul>
+    </div>
   </body>
+  <script src="popup.js"></script>
 </html>
