@@ -22,6 +22,7 @@ var popup = function () {
             $.each(data.torrents, function (key, val) {
                 appendBook(val.torrent.url, val.torrent.title);
             });
+            $("#loading").hide();
         });
     }
 
