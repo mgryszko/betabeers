@@ -7,7 +7,7 @@ class TorrentHubController {
 
     def search() {
         def term = params.bookTitle
-        def url = "http://www.mnova.eu/rss.php?search=$term".toURL()
+        def url = "http://www.mnova.eu/rss.php?search=$term&order=name".toURL()
 
         def torrentList = [torrents: []]
 
