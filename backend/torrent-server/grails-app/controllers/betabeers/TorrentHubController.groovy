@@ -26,7 +26,7 @@ class TorrentHubController {
 
     private parseUrl(url) {
         def xml = new XmlSlurper().parseText(url.text)
-        def allItems = xml.channel.item
+        def allItems = xml.channel.item.findAll { it.category == 'Books' }
         allItems.inject([]) { list, item ->
             list << new Torrent(title: item.title, url: item.enclosure.'@url')
         }
