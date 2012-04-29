@@ -39,14 +39,21 @@ var scraper = function () {
     }
 }();
 
+
 if (scraper.onAmazon() && scraper.isBookDisplayed()) {
     chrome.extension.sendRequest({bookTitle:scraper.findBookTitle()});
+    removeCart();
+    appendFlag();
+}
 
+function removeCart() {
     $("#rcx-subs-bb, .primeEvent").remove();
     $("#addToCartUBBSpan").remove();
     $("#quantityDropdownDiv").remove();
     $("#oneClickDivId").remove();
+}
 
-    var skullImg = "<img id='searchBooks' width='100' src='http://lh6.ggpht.com/-fhG5DFn2aL0/Tyr7IB1zYWI/AAAAAAAARxk/t7pgfO5SeTk/Pirate%252520Party_thumb.png' />";
-    $("#addToCartSpan").empty().append(skullImg);
+function appendFlag() {
+    var flagImg = "<img id='searchBooks' width='100' src='https://github.com/mgryszko/betabeers/raw/master/frontend/bootstrap/img/pirate.png' />";
+    $("#addToCartSpan").empty().append(flagImg);
 }
