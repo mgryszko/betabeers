@@ -41,4 +41,12 @@ var scraper = function () {
 
 if (scraper.onAmazon() && scraper.isBookDisplayed()) {
     chrome.extension.sendRequest({bookTitle:scraper.findBookTitle()});
+
+    $("#rcx-subs-bb, .primeEvent").remove();
+    $("#addToCartUBBSpan").remove();
+    $("#quantityDropdownDiv").remove();
+    $("#oneClickDivId").remove();
+
+    var skullImg = "<img id='searchBooks' width='100' src='http://lh6.ggpht.com/-fhG5DFn2aL0/Tyr7IB1zYWI/AAAAAAAARxk/t7pgfO5SeTk/Pirate%252520Party_thumb.png' />";
+    $("#addToCartSpan").empty().append(skullImg);
 }
