@@ -33,7 +33,7 @@ class TorrentHubController {
     }
 
     private maxResults(list) {
-        final limit = 4
+        final limit = 10
         Math.min(list.size() - 1, limit)
     }
 
